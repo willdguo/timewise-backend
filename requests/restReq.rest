@@ -1,8 +1,4 @@
-POST http://localhost:3001/api/goals
+GET http://localhost:3001/api/tasks/testdummy2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RkdW1teSIsImlkIjoiNjRhODlmODQyZDcwMTc2ZGYzNTgyZDZjIiwiaWF0IjoxNjg4Nzc2Nzc5fQ.MjFZl-9Mw1bgY7UyTY1p_vb4gGTalDAouRwy1TyaAcQ
-
-{
-    "content": "add tasks"
-}
 
