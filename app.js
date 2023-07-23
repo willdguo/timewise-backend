@@ -3,7 +3,6 @@ const express = require('express')
 const http = require('http')
 const app = express()
 const cors = require('cors')
-const socketIO = require('socket.io')
 const goalsRouter = require('./controllers/goals')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
@@ -25,11 +24,7 @@ mongoose.connect(config.MONGODB_URI)
     })
 
 
-const io = socketIO(server, {
-    cors: {
-        origin: "http://localhost:3000",
-    }
-})
+const io = require('./sockets/socket')(server)
 
 app.use(cors())
 app.use(express.json())
@@ -43,15 +38,5 @@ app.use('/api/login', loginRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
-
-io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`)
-
-    socket.on("join_room", (data) => {
-        console.log(`now online`)
-        console.log(data)
-        io.emit("joined_room", data)
-    })
-})
 
 module.exports = server     

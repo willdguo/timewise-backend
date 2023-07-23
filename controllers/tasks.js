@@ -12,7 +12,7 @@ tasksRouter.get('/:username', async(request, response) => {
     const username = request.params.username
 
     const user = await User.find({'username': username})
-    console.log(user)
+    // console.log(user)
     const tasks = await Task.find({'user': user})
 
     response.json(tasks)
