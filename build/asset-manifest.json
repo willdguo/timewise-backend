@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/static/js/main.7930ba66.js",
+    "static/media/task_complete.wav": "/static/media/task_complete.a979c254959234d4d7d6.wav",
+    "static/media/timer_complete.mp3": "/static/media/timer_complete.65c65a0edec6855573b5.mp3",
+    "static/media/add-task-sound.mp3": "/static/media/add-task-sound.665234d178fa29dc6015.mp3",
+    "static/media/light.png": "/static/media/light.8a8b5eed065bf2b8c766.png",
+    "static/media/click-21156.mp3": "/static/media/click-21156.7f139b396a1194e8727a.mp3",
+    "index.html": "/index.html",
+    "main.7930ba66.js.map": "/static/js/main.7930ba66.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.7930ba66.js"
+  ]
+}
