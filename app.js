@@ -27,6 +27,7 @@ mongoose.connect(config.MONGODB_URI)
 const io = require('./sockets/socket')(server)
 
 app.use(cors())
+app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
