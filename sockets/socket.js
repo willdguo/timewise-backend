@@ -13,54 +13,78 @@ const websocket = (server) => {
         console.log(`User Connected: ${socket.id}`)
     
         socket.on("join_room", (data) => {
-            // console.log(`now online: ${data.username}`)
-            connectedUsers[socket.id] = data;
 
-            console.log("joined, new:")
-            // console.log(Object.values(connectedUsers))
+            if (socket.room) {
 
+                let currUser;
 
-            io.emit("joined_room", data)
-            socket.emit("joined_room_coworkers", Object.values(connectedUsers))
+                if(socket.room && connectedUsers[socket.room]) {
+                    currUser = connectedUsers[socket.room].find(u => u.socket === socket.id)
+                    connectedUsers[socket.room] = connectedUsers[socket.room].filter(u => u.socket !== socket.id)
+                }
+    
+                socket.to(socket.room).emit("left_room_coworker", {...currUser})
+
+                socket.leave(socket.room)
+            }
+
+            socket.join(data.room)
+            socket.room = data.room
+
+            if(!connectedUsers[data.room]) {
+                connectedUsers[data.room] = []
+            }
+
+            connectedUsers[data.room].push({...data, socket: socket.id}) // why keep socket.id?
+
+            socket.to(socket.room).emit("joined_room", data)
+            socket.emit("joined_room_coworkers", connectedUsers[data.room])
         })
 
         socket.on("disconnect", () => {
 
-            io.emit("left_room_coworker", connectedUsers[socket.id])
+            let currUser;
 
-            delete connectedUsers[socket.id]
-            // console.log("leave, remaining:")
-            // console.log(Object.values(connectedUsers))
+            if(socket.room && connectedUsers[socket.room]) {
+                currUser = connectedUsers[socket.room].find(u => u.socket === socket.id)
+                connectedUsers[socket.room] = connectedUsers[socket.room].filter(u => u.socket !== socket.id)
+            }
+
+            socket.to(socket.room).emit("left_room_coworker", {...currUser})
         })
 
         socket.on("logout", () => {
-            io.emit("left_room_coworker", connectedUsers[socket.id])
-            delete connectedUsers[socket.id]
+            let currUser;
+
+            if(socket.room && connectedUsers[socket.room]) {
+                currUser = connectedUsers[socket.room].find(u => u.socket === socket.id)
+                connectedUsers[socket.room] = connectedUsers[socket.room].filter(u => u.socket !== socket.id)
+            }
+
+            socket.to(socket.room).emit("left_room_coworker", {...currUser})
         })
 
         socket.on("new_task", (data) => {
-            io.emit("coworker_new_task", data)
+            socket.to(socket.room).emit("coworker_new_task", data)
         })
 
         socket.on("deleted_task", (data) => {
-            io.emit("coworker_deleted_task", data)
+            socket.to(socket.room).emit("coworker_deleted_task", data)
         })
 
         socket.on("edited_task", (data) => {
-            io.emit("coworker_edited_task", data)
+            socket.to(socket.room).emit("coworker_edited_task", data)
         })
 
         socket.on("progress_task", (data) => {
-            io.emit("coworker_progress_task", data)
+            socket.to(socket.room).emit("coworker_progress_task", data)
         })
 
         socket.on("status_task", (data) => {
-            io.emit("coworker_status_task", data)
+            socket.to(socket.room).emit("coworker_status_task", data)
         })
-        
-    })
 
-    // return io
+    })
 }
 
 module.exports = websocket
