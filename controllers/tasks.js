@@ -8,6 +8,16 @@ tasksRouter.get('/', async(request, response) => {
     response.json(tasks)
 })
 
+tasksRouter.get('/:username', async(request, response) => {
+    const username = request.params.username
+
+    const user = await User.find({'username': username})
+    // console.log(user)
+    const tasks = await Task.find({'user': user})
+
+    response.json(tasks)
+})
+
 tasksRouter.post('/', async(request, response) => {
     const body = request.body
 
@@ -72,6 +82,8 @@ tasksRouter.delete('/:id', async(request, response) => {
 })
 
 tasksRouter.put('/:id', async(request, response) => {
+    // 1. verify editor = original author
+    // 2. update User's task list
     const body = request.body
     const id = request.params.id
 
