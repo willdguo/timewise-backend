@@ -15,9 +15,8 @@ const tokenExtractor = (request, response, next) => {
 
 }
 
-async function userExtractor (request, response, next) {
 
-//   console.log(request.token)
+async function userExtractor (request, response, next) {
 
   if(request.token){
 

@@ -5,7 +5,8 @@ const websocket = (server) => {
         cors: {
             // origin: "http://localhost:3000",
             // origin: "https://workspace-kappa.vercel.app",
-            origin: "https://cowork-backend.onrender.com"
+            // origin: "https://cowork-backend.onrender.com"
+            origin: "http://34.217.73.248:3001"
         }
     })
 
