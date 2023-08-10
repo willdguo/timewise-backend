@@ -4,9 +4,7 @@ const websocket = (server) => {
     const io = socketIO(server, {
         cors: {
             // origin: "http://localhost:3000",
-            // origin: "https://workspace-kappa.vercel.app",
-            // origin: "https://cowork-backend.onrender.com"
-            origin: "http://34.217.73.248:3001"
+            origin: ["http://localhost:3000", "http://54.185.47.243:3001", "https://cowork-server.link, https://workspace-kappa.vercel.app"]
         }
     })
 
