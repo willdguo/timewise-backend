@@ -28,6 +28,7 @@ goalsRouter.post('/', async(request, response) => {
 
     const newGoal = new Goal({
         content: body.content,
+        note: "",
         user: user.id
     })
 
@@ -76,7 +77,8 @@ goalsRouter.put('/:id', async(request, response) => {
     const id = request.params.id
 
     const updatedGoal = {
-        content: body.content
+        content: body.content,
+        note: body.note,
     }
 
     const result = await Goal.findByIdAndUpdate(id, updatedGoal, {new: true})

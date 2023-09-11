@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const goalSchema = new mongoose.Schema({
   content: String,
+  note: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

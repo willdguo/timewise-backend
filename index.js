@@ -7,3 +7,5 @@ server.listen(config.PORT, () => {
 })
 
 // node to ec2: https://www.youtube.com/watch?v=T-Pum2TraX4&t=572s
+// start pm2 server in timewise-backend folder with:
+// pm2 start npm --name index.js -- run start

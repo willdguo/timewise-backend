@@ -29,6 +29,8 @@ async function userExtractor (request, response, next) {
       request.user = await User.findById(decodedToken.id)
 
     }
+
+    next()
   } catch (error) {
     if(error instanceof jwt.JsonWebTokenError) {
       return response.status(401).json({error: 'invalid token'})
@@ -37,7 +39,6 @@ async function userExtractor (request, response, next) {
     return response.status(500).json({error: 'idk some internal error'})
   }
 
-  next()
 }
 
 const requestLogger = (request, response, next) => {
